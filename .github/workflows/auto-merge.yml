@@ -1,12 +1,14 @@
+name: Create STG Branch
+
 on:
-  create_stg_branch:
+  workflow_dispatch:
     inputs:
       branch-name:
         description: "作成するブランチ名を入力してください"
         required: true
 
 jobs:
-  create_pr:
+  create_branch:
     runs-on: ubuntu-latest
     env:
       # githubのコンソールから入力したリリース名を環境変数へ保存
