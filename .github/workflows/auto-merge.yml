@@ -12,15 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # githubのコンソールから入力したリリース名を環境変数へ保存
+      # stg/にするとstgブランチと競合するため別名に
       STG_BRANCH_NAME: merged-stg/${{ github.event.inputs.branch-name }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
       # releasブランチを作成
       - name: Create and push stg branch
+        # マージの方針を指定（やり方は要調整）
         run: |
           git checkout -b ${{ env.STG_BRANCH_NAME }}
-          git pull origin master
           git config --global  pull.ff true
           git pull origin stg
           git push origin ${{ env.STG_BRANCH_NAME }}
+      # 「fatal: refusing to merge unrelated histories」を防ぐためにstgは常に最新のmasterを取り込まなければならない
