@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # githubのコンソールから入力したリリース名を環境変数へ保存
-      STG_BRANCH_NAME: stg/${{ github.event.inputs.branch-name }}
+      STG_BRANCH_NAME: merged-stg/${{ github.event.inputs.branch-name }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
