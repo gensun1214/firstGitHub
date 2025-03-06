@@ -20,6 +20,7 @@ jobs:
       - name: Create and push stg branch
         run: |
           git checkout -b ${{ env.STG_BRANCH_NAME }}
+          git pull origin master
           git config --global  pull.ff true
           git pull origin stg
           git push origin ${{ env.STG_BRANCH_NAME }}
