@@ -1,0 +1,22 @@
+on:
+  create_stg_branch:
+    inputs:
+      branch-name:
+        description: "作成するブランチ名を入力してください"
+        required: true
+
+jobs:
+  create_pr:
+    runs-on: ubuntu-latest
+    env:
+      # githubのコンソールから入力したリリース名を環境変数へ保存
+      STG_BRANCH_NAME: stg/${{ github.event.inputs.branch-name }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      # releasブランチを作成
+      - name: Create and push stg branch
+        run: |
+          git checkout -b ${{ env.STG_BRANCH_NAME }}
+          git pull origin stg
+          git push origin ${{ env.STG_BRANCH_NAME }}
